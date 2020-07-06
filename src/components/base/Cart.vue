@@ -7,53 +7,60 @@
         </button>
       </div>
     </div>
-    <div class="wrap-body">
-      <div class="cart-body">
-        <CardOnCart v-for="(item, i) in selected" :key="i"
-                    :item="item" />
-        <div v-if="isEmpty" class="empty-cart">
-          <div class="empty-img">
-            <img src="@/assets/img/empty-cart.png">
-          </div>
-          <h1>Your cart is empty</h1>
-          <p>Please add some items from the menu</p>
-        </div>
-      </div>
-    </div>
-    <div class="cart-footer">
-      <div class="cart-total">
-        <div class="total-result">
-          <p>Total:</p>
-          <p>Rp. {{ $store.getters.sumTotal }}*</p>
-        </div>
-        <span>*Belum termasuk ppn</span>
-      </div>
-      <div class="cart-btn-group">
-        <button @click="$emit('checkout-clicked')" class="btn btn-primary">Checkout</button>
-        <button @click="$emit('cancel-clicked')" class="btn btn-secondary">Cancel</button>
-      </div>
+    <div class="sidebar">
+     <ul>
+      <router-link to="/">
+        <li><a href="#"><i class="fas fa-th-large"> Dashboard </i></a></li>
+      </router-link>
+        <li>
+          <a href="#"><i class="fas fa-book"> Pelaporan
+            <span class="fas fa-caret-down"></span>
+          </i></a>
+          <ul>
+            <li><a href="#">Laporan Trafik</a></li>
+            <li><a href="#">Laporan Pendapatan</a></li>
+            <li><a href="#">Pengaduan</a></li>
+            <li><a href="#">Laporan Member</a></li>
+            <li><a href="#">Laporan Gaskir</a></li>
+            <li><a href="#">Laporan Aplikasi</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-cog"> Pengaturan Lokasi
+            <span class="fas fa-caret-down"></span>
+          </i></a>
+          <ul>
+            <li><a href="#">Info Lokir</a></li>
+            <li><a href="#">Tarif</a></li>
+            <router-link to="/gaskir">
+              <li><a class="gaskir">Gaskir</a></li>
+            </router-link>
+            <li><a href="#">Shift</a></li>
+            <li><a href="#">Produk</a></li>
+            <li><a href="#">Pemutihan Kendaraan</a></li>
+            <li><a href="#">Aktivasi Member</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-user"> Sistem Admin
+            <span class="fas fa-caret-down"></span>
+          </i></a>
+          <ul>
+            <li><a href="#">Lokir</a></li>
+            <li><a href="#">Pengguna</a></li>
+            <li><a href="#">Hardware</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><i class="fas fa-user-circle"> Sistem Admin </i></a></li>
+        <li><a href="#"><i class="fas fa-sign-out-alt"> Keluar </i></a></li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import CardOnCart from '@/components/part/CardOnCart.vue'
-
 export default {
-  computed: {
-    selected () {
-      return this.$store.state.selected
-    },
-    isEmpty () {
-      return this.selected.length === 0
-    },
-    cartSum () {
-      return this.$store.state.cartSum
-    }
-  },
-  components: {
-    CardOnCart
-  }
+  name: 'Cart'
 }
 </script>
 
@@ -98,30 +105,12 @@ export default {
       height: 25px;
     }
   }
-  h1 {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .badge-cart {
-    width: 18px;
-    height: 18px;
-    border-radius: 15px;
-    background-color: #57CAD5;
-    color: white;
-    margin-left: 4px;
-    font-weight: 500;
-    font-size: 15px;
-    text-align: center;
-    line-height: 18px;
-  }
 }
-.wrap-body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow-y: auto;
+
+.sidebar {
+  overflow-y: scroll;
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #dbdbdb;
@@ -131,62 +120,169 @@ export default {
     background-color: transparent;
     border-radius: 10px;
   }
-  .cart-body {
-    .empty {
-      display: none;
-    }
-    .empty-cart {
-      .empty-img {
-        margin: 0 auto;
-        width: 160px;
-        height: 135px;
-        overflow: hidden;
-        img {
-          width: 100%;
-          object-fit: cover;
-          background-position: center;
+}
+
+ul {
+    background: white;
+    list-style: none;
+    li {
+      line-height: 40px;
+      a {
+        position: relative;
+        text-align: left;
+        color: black;
+        text-decoration: none;
+        font-size: 16px;
+        padding-left: 30px;
+        font-weight: 500;
+        display: block;
+        border-left: 3px solid transparent;
+        span {
+          position: absolute;
+          top: 50%;
+          right: 25px;
+          transform: translateY(-50%);
+          font-size: 20px;
+          transition: transform 0.4s;
+        }
+        .gaskir {
+          padding-left: 16px;
         }
       }
-      h1 {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 4px;
+      a:hover {
+        color: white;
+        background: orange;
+        border-left-color: orange;
+        span {
+          transform: translateY(-50%) rotate(-180deg);
+        }
       }
-      p {
-        font-size: 15px;
-        font-weight: 400;
-        color: #cecece;
+    }
+    ul {
+      position: static;
+      // display: none;
+      li {
+        line-height: 30px;
+        border-bottom: none;
+        a {
+          font-size: 14px;
+          color: black;
+          padding-left: 50px;
+          text-align: left;
+        }
       }
     }
   }
-}
-.cart-footer {
+
+  @media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .cart {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: white;
+  width: 0vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  margin-top: auto;
-  .cart-total {
-    padding: 0 5px;
-    text-align: left;
-    .total-result {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      margin-bottom: 4px;
-      font-weight: bold;
-    }
-    span {
-      font-size: 12px;
-    }
+  justify-content: flex-start;
+  box-shadow: 4px 0 7px rgba(0, 0, 0, 0.733);
+  overflow: hidden;
+  transition: .3s;
+  &.active {
+    width: 75vw;
   }
-  .cart-btn-group {
-    button {
-      width: 100%;
-      margin: 5px 0;
-      padding: 6px 0;
-      border-radius: 2px;
-      cursor: pointer;
+}
+.cart-header, .wrap-body {
+  width: 100%;
+}
+.cart-header {
+  padding: 12.5px 0;
+  box-shadow: 0 -4px 7px rgba(0, 0, 0, 0.733);
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  .trolly {
+    margin: 0 5px 0 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    img {
+      height: 25px;
     }
   }
 }
+
+.sidebar {
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #dbdbdb;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+  }
+}
+
+ul {
+    background: white;
+    list-style: none;
+    li {
+      line-height: 40px;
+      a {
+        position: relative;
+        text-align: left;
+        color: black;
+        text-decoration: none;
+        font-size: 16px;
+        padding-left: 30px;
+        font-weight: 500;
+        display: block;
+        border-left: 3px solid transparent;
+        span {
+          position: absolute;
+          top: 50%;
+          right: 25px;
+          transform: translateY(-50%);
+          font-size: 20px;
+          transition: transform 0.4s;
+        }
+        .gaskir {
+          padding-left: 16px;
+        }
+      }
+      a:hover {
+        color: white;
+        background: orange;
+        border-left-color: orange;
+        span {
+          transform: translateY(-50%) rotate(-180deg);
+        }
+      }
+    }
+    ul {
+      position: static;
+      // display: none;
+      li {
+        line-height: 30px;
+        border-bottom: none;
+        a {
+          font-size: 14px;
+          color: black;
+          padding-left: 50px;
+          text-align: left;
+        }
+      }
+    }
+  }
+  }
 </style>

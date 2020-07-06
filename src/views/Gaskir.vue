@@ -1,10 +1,10 @@
 <template>
-  <div class="history">
-    <CardOnPark/>
-    <CardOnData/>
-    <div class="wrap-history">
+    <div class="history">
+      <CardOnPark/>
+      <div class="wrap-history">
+        <CardOnData/>
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -18,27 +18,6 @@ export default {
   components: {
     CardOnPark,
     CardOnData
-  },
-  computed: {
-    allMenu () {
-      return this.$store.state.foodMenu
-    }
-  },
-  methods: {
-    select (id, index) {
-      this.$store.commit('SELECT_MENU', id, index)
-      this.showCart()
-    },
-    getItem () {
-      const proto = {
-        mutation: 'GET_ITEM',
-        urlPath: 'menu'
-      }
-      this.$store.dispatch('getApi', proto)
-    }
-  },
-  created () {
-    this.getItem()
   }
 }
 </script>
@@ -51,6 +30,17 @@ export default {
   height: 90vh;
   overflow-y: scroll;
   display: flex;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #dbdbdb;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+  }
   .wrap-history {
     display: flex;
     flex-wrap: wrap;

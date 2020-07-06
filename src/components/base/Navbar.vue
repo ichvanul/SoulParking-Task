@@ -1,16 +1,23 @@
 <template>
   <nav>
     <div>
-      <button class="burger">
-        <img src="@/assets/img/menu.png">
-      </button>
       <div>
-        <button class="search">
-          <img src="@/assets/img/magnifying-glass.png">
-        </button>
         <button @click="$emit('cart-clicked')" class="trolly">
           <p>Tampilkan Menu</p>
         </button>
+      </div>
+      <select name="city" id="city">
+        <option value="DKI Jakarta">DKI Jakarta</option>
+        <option value="Bandung">Bandung</option>
+        <option value="Semarang">Semarang</option>
+        <option value="Makassar">Makassar</option>
+      </select>
+      <div class="account">
+        <div><img src="../../assets/img/guys6.jpg"></div>
+        <div class="content">
+          <p class="name">Husein Damar</p>
+          <p class="status">Super Admin</p>
+        </div>
       </div>
     </div>
   </nav>
@@ -43,7 +50,7 @@ nav {
   }
   div {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     button {
       margin: 0 13px;
@@ -53,30 +60,56 @@ nav {
       outline: none;
       cursor: pointer;
     }
-    .burger {
-      cursor: auto;
-      img {
-        height: 20px;
-      }
-    }
-    .search {
-      margin-right: 20px;
-      img {
-        height: 20px;
-      }
-    }
     .trolly.hidden {
       display: none;
     }
     .trolly {
       display: flex;
       align-items: center;
-      margin-left: 0;
-      padding-left: 0;
+      margin-right: 0;
+      padding-right: 0;
       img {
         height: 25px;
       }
+      p {
+        color: white;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: bold;
+        width: 200px;
+      }
+    }
+    select {
+      margin: 7px 0 7px 650px;
+      padding: 3px 50px 3px 0;
+      border-radius: 5px;
+    }
+    img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      color: white;
+      font-size: 12px;
+      .status {
+        font-weight: 500;
+        p {
+          text-align: left;
+        }
+      }
+      .name {
+        margin-left: 11px;
+        margin-bottom: 3px;
+      }
     }
   }
+}
+
+.account {
+  margin-left: 60px;
 }
 </style>

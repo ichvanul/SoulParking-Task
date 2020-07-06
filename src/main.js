@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
+import Chartkick from 'vue-chartkick'
+import Chart from 'chart.js'
 import router from './router'
 import store from './store'
-import Axios from 'axios'
 
 Vue.config.productionTip = false
-Vue.prototype.$http = Axios
+Vue.use(Chartkick.use(Chart))
 
 new Vue({
   router,

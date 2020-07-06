@@ -80,12 +80,7 @@
 
 <script>
 export default {
-  props: ['card', 'index'],
-  computed: {
-    isSelected () {
-      return this.$store.getters.isSelected(this.card.id)
-    }
-  }
+  name: 'Card'
 }
 </script>
 
